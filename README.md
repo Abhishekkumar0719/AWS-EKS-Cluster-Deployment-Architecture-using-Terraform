@@ -126,7 +126,7 @@ brew tap weaveworks/tap && brew install weaveworks/tap/eksctl
 
 ## EKS Local Setup
 
-[EKS Local Setup Guide](/EKS-local-Setup/)
+[\[EKS Local Setup Guide\] ](EKS-local-Setup/EKS-Local-Setup.md)
 ```
 
 ### Configure AWS Credentials
