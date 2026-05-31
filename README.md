@@ -25,7 +25,7 @@
 ## Architecture Overview
 
 This project deploys a fully managed Kubernetes cluster using **Amazon EKS** inside a custom **VPC** with the following components:
-![Image](<AWS EKS Architecture.png>)
+![image](<AWS EKS Architecture.png>)
 
 ```
 Internet
@@ -124,8 +124,9 @@ winget install Kubernetes.kubectl
 # macOS
 brew tap weaveworks/tap && brew install weaveworks/tap/eksctl
 
-#linux
-- [EKS Local Setup](/EKS-local-Setup/)
+## EKS Local Setup
+
+[EKS Local Setup Guide](/EKS-local-Setup/)
 ```
 
 ### Configure AWS Credentials
