@@ -25,6 +25,7 @@
 ## Architecture Overview
 
 This project deploys a fully managed Kubernetes cluster using **Amazon EKS** inside a custom **VPC** with the following components:
+![Image](<AWS EKS Architecture.png>)
 
 ```
 Internet
@@ -123,9 +124,8 @@ winget install Kubernetes.kubectl
 # macOS
 brew tap weaveworks/tap && brew install weaveworks/tap/eksctl
 
-# Linux
-curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-sudo mv /tmp/eksctl /usr/local/bin
+#linux
+- [EKS Local Setup](/EKS-local-Setup/)
 ```
 
 ### Configure AWS Credentials
@@ -149,14 +149,7 @@ aws sts get-caller-identity
 
 ```bash
 # Create VPC
-aws ec2 create-vpc \
-  --cidr-block 10.0.0.0/16 \
-  --tag-specifications 'ResourceType=vpc,Tags=[{Key=Name,Value=eks-vpc}]'
-
-# Enable DNS hostnames (required for EKS)
-aws ec2 modify-vpc-attribute \
-  --vpc-id <VPC_ID> \
-  --enable-dns-hostnames
+- [create vpc terraform](./modules/vpc/)
 ```
 
 ### Step 2 — Create Subnets
