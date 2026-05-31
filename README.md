@@ -47,6 +47,40 @@ Public Subnet (10.1.0.0/24)
                 ▼
          NAT Gateway ──► Internet (outbound only)
 ```
+```
+AWS-EKS-Cluster-Deployment-Architecture-using-Terraform/
+├── .terraform.lock.hcl
+├── .terraform/
+│   ├── modules/
+│   │   └── modules.json
+│   └── terraform.tfstate
+├── AWS EKS Architecture.png
+├── Backend/
+│   ├── .terraform.lock.hcl
+│   ├── main.tf
+│   ├── terraform.tfstate
+│   └── terraform.tfstate.backup
+├── EKS-local-Setup/
+│   └── EKS-Local-Setup.md
+├── PNG Architecture/
+│   └── AWS EKS Architecture.png
+├── README.md
+├── main.tf
+├── modules/
+│   ├── eks/
+│   │   ├── main.tf
+│   │   ├── outputs.tf
+│   │   └── variables.tf
+│   └── vpc/
+│       ├── main.tf
+│       ├── outputs.tf
+│       └── variables.tf
+├── outputs.tf
+├── user
+└── variables.tf
+```
+
+
 
 **Key components:**
 
@@ -714,53 +748,6 @@ git push origin main
 ```
 
 ---
-
-## CI/CD Integration (Optional)
-
-Automate your deployment using **GitHub Actions**.
-
-Create the file `.github/workflows/deploy.yml`:
-
-```yaml
-name: Deploy to EKS
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
-
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build and push Docker image
-        run: |
-          docker build -t ${{ secrets.ECR_REGISTRY }}/my-app:${{ github.sha }} .
-          docker push ${{ secrets.ECR_REGISTRY }}/my-app:${{ github.sha }}
-
-      - name: Update kubeconfig
-        run: |
-          aws eks update-kubeconfig --name my-eks-cluster --region ap-south-1
-
-      - name: Deploy to EKS
-        run: |
-          kubectl set image deployment/my-app \
-            my-app=${{ secrets.ECR_REGISTRY }}/my-app:${{ github.sha }}
-          kubectl rollout status deployment/my-app
-```
 
 Add these GitHub Secrets in your repository settings:
 
